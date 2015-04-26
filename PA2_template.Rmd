@@ -1,0 +1,30 @@
+---
+title: "Succint, Descriptive Analysis Title"
+output: 
+  html_document:
+    keep_md: true
+---
+
+## Synopsis
+In this report I explore the 
+
+## Data Processing
+### Retrieving and Loading the Data
+```{r loaddata}
+download_url <- 'https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2FStormData.csv.bz2'
+downloaded_file <- 'repdata%2Fdata%2FStormData.csv.bz2'
+extracted_file <- 'repdata%2Fdata%2FStormData.csv'
+
+if (file.exists(downloaded_file)) {
+  print(sprintf("%s already present; using local copy", downloaded_file))
+} else {
+  print(sprintf("Downloading %s from %s", downloaded_file, download_url))
+  download.file(download_url, destfile=downloaded_file, method='curl')
+}
+
+stormdata <- read.csv(bzfile(downloaded_file))
+stormdata$REMARKS <- as.character(stormdata$REMARKS) # this is not a factor
+summary(stormdata)
+```
+
+## Results
